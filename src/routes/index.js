@@ -1,9 +1,9 @@
 const authentification = require('./authentification')
-// const patients = require('./patients')
 const doctors = require('./doctors')
+const patients = require('./patients')
 
 module.exports = {
     authentification,
-    // patients,
+    patients,
     doctors
 }
