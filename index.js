@@ -2,11 +2,14 @@ const express = require('express')
 const { port } = require('./config')
 const routes = require('./src/routes/index')
 const cors = require('cors')
+const morgan = require('morgan')
 const app = express()
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
+
 app.use(cors())
+app.use(morgan('dev'))
 
 app.use('/api/authentification', routes.authentification)
 app.use('/api/patients', routes.patients)

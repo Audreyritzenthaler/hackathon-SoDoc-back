@@ -16,4 +16,21 @@ Router.get('/:id/messages', (req, res) => {
   })
 })
 
+Router.post('/:id/messages', (req, res) => {
+  console.log(req.params, req.body)
+  const values = [
+    patientId = req.params.id,
+    doctorId = req.body.doctorId,
+    message = req.body.message,
+    mood_status = req.body.mood_status
+  ]
+  const sql = 'INSERT INTO message (patient_id, doc_id, message, mood_status) VALUES (?,?,?,?)'
+  connection.query(sql, values, (err) => {
+    if (err) throw err
+    const time = new Date().toISOString().replace('T', ' ').substr(0, 19)
+    values.push(time)
+    res.status(200).send(values)
+  })
+})
+
 module.exports = Router
