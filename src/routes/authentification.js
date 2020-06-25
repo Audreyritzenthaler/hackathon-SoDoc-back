@@ -3,25 +3,23 @@ const { connection } = require('../../config')
 const Router = express.Router()
 
 //POST authentification
-
-Router.get('/', (req,res) => {
-    res.send('salut')
-})
-
-Router.post('/', (req, res) => {console.log(req.body)
+Router.post('/', (req, res) => {
     // Lack of data validation HERE
-    const { email, pwd } = req.body
+    const { mail, pwd } = req.body
     const sql = 'SELECT * FROM patient WHERE email = ?'
     const values = [
-        email,pwd
+        mail,pwd
     ]
     connection.query(sql, values, (err, result) => {
-        console.log('result',result)
         if (err) {
             return res.status(500).send(`An error occurred: ${err.message}`)
-        } else if (!result.email[0]) {
+        } else if (!result[0].email) {
             return res.status(409).send('Utilisateur inconnu')
-        } 
+        } else if (result[0].password !== pwd) {
+            return res.status(401).send('Wrong password')
+        } else {
+            return res.status(200).json(result[0].id)
+        }
     }
   )
 })
