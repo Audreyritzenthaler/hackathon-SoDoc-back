@@ -10,8 +10,7 @@ app.use(cors())
 
 app.use('/api/authentification', routes.authentification)
 app.use('/api/patients', routes.patients)
-// app.use('./api/doctors', routes.doctors)
-
+app.use('/api/doctors', routes.doctors)
 
 app.listen(port, (err) => {
   if (err) throw err
