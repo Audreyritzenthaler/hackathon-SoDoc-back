@@ -36,7 +36,8 @@ Router.get('/:id/patients/messages', (req, res) => {
 Router.get('/:id/patients', (req,res) => {
     const idDoctor = req.params.id
     const idPatient = req.query.id
-    const sql = 'SELECT DISTINCT p.firstname, p.lastname, p.email, p.phoneNumber FROM message m JOIN patient p ON p.id = m.patient_id JOIN doctor d ON m.doc_id = d.id   '
+		const sql = 'SELECT DISTINCT p.firstname, p.lastname, p.email, p.phoneNumber FROM message JOIN patient p ON p.id = message.patient_id JOIN doctor d ON message.doc_id = d.id WHERE 1= 1 AND message.doc_id = ? AND message.patient_id = ?'
+		
     connection.query(sql, [idDoctor,idPatient], (err,result) => {
         if (err) {
 			return res.status(500).send(`An error occurred: ${err.message}`)
