@@ -13,7 +13,7 @@ app.get('/', (req,res) => {
 })
 
 app.use('/api/authentification', routes.authentification)
-// app.use('./api/patients', routes.patients)
+app.use('./api/patients', routes.patients)
 // app.use('./api/doctors', routes.doctors)
 
 
