@@ -34,7 +34,7 @@ Router.get('/:doctorId/patients/:patientId/messages', (req, res) => {
 //GET doctor's patients 
 Router.get('/:id/patients', (req,res) => {
     const idDoctor = req.params.id
-		const sql = 'SELECT DISTINCT p.firstname, p.lastname, p.email, p.phoneNumber FROM message JOIN patient p ON p.id = message.patient_id JOIN doctor d ON message.doc_id = d.id WHERE message.doc_id = ?'
+		const sql = 'SELECT DISTINCT p.firstname, p.lastname, p.email, p.phoneNumber, p.id FROM message JOIN patient p ON p.id = message.patient_id JOIN doctor d ON message.doc_id = d.id WHERE message.doc_id = ?'
 		
     connection.query(sql, [idDoctor], (err,result) => {
         if (err) {
