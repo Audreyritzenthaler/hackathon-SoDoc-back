@@ -17,12 +17,11 @@ Router.get('/:id/messages', (req, res) => {
 })
 
 //GET all messages of a patient for a doctor
-Router.get('/:id/patients/messages', (req, res) => {
-    const idDoctor = req.params.id
-    const idPatient = req.query.id
+Router.get('/:doctorId/patients/:patientId/messages', (req, res) => {
+    const { doctorId, patientId } = req.params
     const sql ='SELECT message, mood_status, creation_date, message.read FROM message JOIN patient ON patient.id = message.patient_id JOIN doctor ON doctor.id = message.doc_id WHERE 1=1 AND doctor.id = ? AND patient.id = ? ORDER BY creation_date DESC'
 
-	connection.query(sql, [idDoctor, idPatient], (err, result) => {
+	connection.query(sql, [doctorId, patientId], (err, result) => {
 		if (err) {
 			return res.status(500).send(`An error occurred: ${err.message}`)
 		} else {

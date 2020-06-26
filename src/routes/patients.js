@@ -3,6 +3,19 @@ const { connection } = require('../../config')
 
 const Router = express.Router()
 
+Router.get('/:id', (req, res) => {
+  const values = [
+    patientId = req.params.id,
+    doctorId = req.query.doctorId
+  ]
+  const sql = 'SELECT DISTINCT doctor.lastname, doctor.firstname, doctor.lastname, doctor.email, doctor.phoneNumber, doctor.specialities, doctor.adress, doctor.codePostal, doctor.city FROM doctor JOIN message ON message.doc_id = doctor.id WHERE 1=1 AND message.patient_id = ? AND message.doc_id = ?'
+
+  connection.query(sql, values, (err, result) => {
+    if (err) throw err
+    res.status(200).send(result)
+  })
+})
+
 Router.get('/:id/messages', (req, res) => {
   const values = [
     patientId = req.params.id,
