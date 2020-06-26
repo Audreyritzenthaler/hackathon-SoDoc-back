@@ -42,7 +42,7 @@ Router.post('/:id/messages', (req, res) => {
     if (err) throw err
     const time = new Date().toISOString().replace('T', ' ').substr(0, 19)
     values.push(time)
-    res.status(200).send(values)
+    res.status(200).send({message: req.body.message, mood_status: req.body.mood_status, creation_date: time })
   })
 })
 
